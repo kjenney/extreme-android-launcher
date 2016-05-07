@@ -16,6 +16,24 @@ if [[ $bashversion != 4* ]]; then
 	exit
 fi
 
+#####--------------------------DECLARE VARIABLES ------------------------------#####
+
+# Crete the masterpid as a marker for the children
+MASTERPID=$$
+
+DATE=`date +%m%d-%H.%M-`
+
+avd="$1"
+
+# Logging
+outputdir="$HOME/myapp/output"
+output="$outputdir/$DATE$MASTERPID"
+avdlog="$output/avd.log"
+scriptlog="$output/script.log"
+debuglog="$output/debug.log"
+
+#####--------------------------END VARIABLES ------------------------------#####
+
 function usage {
 	echo "$(basename "$0") -{l} -{i} - {a} - {t} - {z} - {d} - {c} - {v} - {k} - {r} - {w} - {t} - {c} - {e} - {h} avdname--- Script to Launch Android Emulators"
 	echo "where: " 
@@ -313,7 +331,7 @@ function sendkeys {
 
 #####-------------------------------- GET OPTS ----------------------------#####
 
-options='l:i:a:t:zdcvkrweh'
+options=':l:i:a:t:zdcvkrweh'
 while getopts $options option; do
 	case $option in
 		l  ) lavd=$OPTARG;;
@@ -335,7 +353,7 @@ done
 
 shift $(($OPTIND - 1))
 
-#####--------------------------END FUNCTIONS ------------------------------#####
+#####--------------------------END GETOPTS ------------------------------#####
 
 ## REQUIRED - end here ##
 ##
@@ -351,31 +369,20 @@ if ps -ef | grep emulator | grep -qw $1; then
         exit
 fi
 
-#####--------------------------DECLARE VARIABLES ------------------------------#####
+########################################
 
-# Crete the masterpid as a marker for the children
-MASTERPID=$$
-
-DATE=`date +%m%d-%H.%M-`
-
-avd="$1"
-
-# Logging
-outputdir="$HOME/myapp/output"
-output="$outputdir/$DATE$MASTERPID"
-avdlog="$output/avd.log"
-scriptlog="$output/script.log"
-debuglog="$output/debug.log"
+# Generate directories and files for logging
 mkdir -p $output
 touch $debuglog
 
-#####--------------------------END VARIABLES ------------------------------#####
+########################################
 
 echo "Started at: $(date)"
 
 # Launch the emulator
 launchit $1
 echo "Device available at: $(date)"
+echo
 
 ## Do various things
 
