@@ -19,7 +19,7 @@ where:
 	-z		send some keys to clear the screen (i.e. before an activity launch)
 	-d		check out debug logs
  	-c		clear logs
-	-v              get available AVD's
+	-v		get available AVD's
 	-k		kill running emulators
 	-r 	 	list running emulators
 	-w		visual mode (for debugging)
