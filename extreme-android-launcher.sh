@@ -3,6 +3,7 @@
 # Script to launch android emulators
 
 # TODO: Auto close activities in the way of a launched app
+# TODO: Verify install
 
 # This script logs for this specific run and can work with an infinite number of avd's. However, only one instance of each avd can be running at a time
 
@@ -98,9 +99,9 @@ function activitydump {
 
 # Select instance to debug
 function selectdebug {
-	count=$(ls -l $HOME/money/output | wc -l)	
+	count=$(ls -l $outputdir | wc -l)	
 	if [ $count -gt 1 ]; then
-		select DIRNAME in $HOME/money/output/*; do
+		select DIRNAME in $outputdir/*; do
 			if [ -z $DIRNAME ]; then
 				echo "Quitting"
 			else
@@ -116,7 +117,7 @@ function selectdebug {
 
 # Clear instance loggs
 function clearlogs {
-	rm -rf $HOME/money/output/* > /dev/null 2>&1
+	rm -rf $outputdir/* > /dev/null 2>&1
 	rm -rf /tmp/* > /dev/null 2>&1
 }
 
@@ -208,9 +209,15 @@ function installit {
                 	exit
         	fi	
 	done
+
+	# Activties dump for debugging
+        activitydump "Installed"
+}
+
+function verifyinstall {
 	# Verify install
 	echo "Verifying install"
-	adb -s $devicename shell pm list packages | grep money >> $scriptlog 2>&1
+	adb -s $devicename shell pm list packages | grep app >> $scriptlog 2>&1
 	if [ $? -eq 0 ]; then
         	echo "Package successfully installed"
 		echo
@@ -221,7 +228,7 @@ function installit {
 	fi
 	
 	# Activties dump for debugging
-	activitydump "Installed"
+	activitydump "Verified Installed"
 }
 
 function intheway {
@@ -350,7 +357,8 @@ DATE=`date +%m%d-%H.%M-`
 avd="$1"
 
 # Logging
-output="$HOME/money/output/$DATE$MASTERPID"
+outputdir="$HOME/myapp/output"
+output="$outputdir/$DATE$MASTERPID"
 avdlog="$output/avd.log"
 scriptlog="$output/script.log"
 debuglog="$output/debug.log"
