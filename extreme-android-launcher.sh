@@ -205,10 +205,14 @@ function installit {
         	sleep 15
 		i=$[$i+1]
         	if [ $i == 10 ]; then
+			echo "Device is not available...exiting"
                 	cleanup
                 	exit
         	fi	
 	done
+
+	echo "Package successfully intalled"
+	echo	
 
 	# Activties dump for debugging
         activitydump "Installed"
