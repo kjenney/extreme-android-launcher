@@ -41,6 +41,7 @@ function usage {
     	echo "	-i		install an app from apk (from the sdcard)" 
     	echo "	-a		launch an app activity (specify the activity name)"
 	echo "	-t		pass text to the app"
+	echo "  -x		take screenshot of app"
     	echo "	-z		send some keys to clear the screen (i.e. before an activity launch)"
 	echo "	-d		check out debug logs"	
 	echo " 	-c		clear logs"
@@ -93,7 +94,7 @@ function listavds {
 function listemu {
         ps -ef | grep '[e]mu'
 	if [ $? -eq 1 ]; then
-		echo "No old emulators found"
+		echo "No running emulators found"
 	else
 		ps -ef | grep '[e]mu' | awk '{print $2}'
 	fi
@@ -144,9 +145,16 @@ function clearlogs {
 
 # Kill everything
 function cleanup {
-	# Get the emulator PID from file
 	echo "Killing emulator with $PID"	
 	kill -9 "$PID"
+}
+
+# Take screenshot of app
+function screencapapp {
+	shot="/mnt/sdcard/screen$PID"	
+	adb -s $devicename shell screencap -p $shot
+	adb -s $devicename pull $shot
+	adb -s $devicename shell rm $shot
 }
 
 # Launch the emulator
