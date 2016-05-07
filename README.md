@@ -2,7 +2,7 @@
 
 This is a script I created whil trying to unit test my apps.
 
-This will work on any system with Bash 4.
+This will work on any system with Bash 4 and Android SDK (Current Version). I'm constantly running tests and updating my SDK so I'll fix any issues as I see them with newer SDK versions.
 
 Feel free to add feature requests and/or suggestions.
 
