@@ -35,7 +35,7 @@ debuglog="$output/debug.log"
 #####--------------------------END VARIABLES ------------------------------#####
 
 function usage {
-	echo "$(basename "$0") -{l} -{i} - {a} - {t} - {z} - {d} - {c} - {v} - {k} - {r} - {w} - {t} - {c} - {e} - {h} avdname--- Script to Launch Android Emulators"
+	echo "$(basename "$0") -{l} -{i} - {a} - {t} - {x} - {z} - {d} - {c} - {v} - {k} - {r} - {w} - {t} - {c} - {e} - {h} avdname--- Script to Launch Android Emulators"
 	echo "where: " 
 	echo "	-l		launch an AVD with name (skips logging and cleanup)"
     	echo "	-i		install an app from apk (from the sdcard)" 
@@ -349,6 +349,7 @@ while getopts $options option; do
 		i  ) apk=$OPTARG;;	
             	a  ) activity=$OPTARG;;
 		t  ) apptext=$OPTARG;;
+		x  ) screencap="YES";;
 		z  ) clearscreen="YES";;
 	    	d  ) selectdebug;exit;;	
 		c  ) clearlogs;exit;;
@@ -410,11 +411,16 @@ fi
 # Launching an app
 if [ ! -z $activity ]; then
 	launchapp
-fi
 
-# Sending text to an app
-if [ ! -z $apptext ]; then
-	sendkeys
+	# Sending text to an app
+	if [ ! -z $apptext ]; then
+		sendkeys
+	fi
+
+	# Take a screenshot
+	if [ ! -z $screencap ]; then
+		screencapapp
+	fi
 fi
 
 # Finally, cleaning house
