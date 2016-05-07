@@ -41,7 +41,7 @@ function usage {
     	echo "	-i		install an app from apk (from the sdcard)" 
     	echo "	-a		launch an app activity (specify the activity name)"
 	echo "	-t		pass text to the app"
-	echo "  -x		take screenshot of app"
+	echo "	-x		take screenshot of app"
     	echo "	-z		send some keys to clear the screen (i.e. before an activity launch)"
 	echo "	-d		check out debug logs"	
 	echo " 	-c		clear logs"
@@ -342,7 +342,7 @@ function sendkeys {
 
 #####-------------------------------- GET OPTS ----------------------------#####
 
-options=':l:i:a:t:zdcvkrweh'
+options=':l:i:a:t:xzdcvkrweh'
 while getopts $options option; do
 	case $option in
 		l  ) lavd=$OPTARG;;
