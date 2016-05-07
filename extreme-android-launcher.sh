@@ -153,7 +153,7 @@ function cleanup {
 function screencapapp {
 	shot="/mnt/sdcard/screen$PID"	
 	adb -s $devicename shell screencap -p $shot
-	adb -s $devicename pull $shot
+	adb -s $devicename pull $shot $output
 	adb -s $devicename shell rm $shot
 }
 
