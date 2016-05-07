@@ -72,6 +72,9 @@ function examples {
     	echo -e "\t $(basename "$0") -a myapp.activity MyAVD"
     	echo "Install and Launch:"
     	echo -e "\t $(basename "$0") -a myapp.activity -i myapp.apk AnyAVD"
+	echo
+	echo "Full launch:"
+	echo -e "\t $(basename "$0") -i myapp.apk -a "myapp/.MainActivity" -t "Some Code" -z MyAVD"
     	exit
 }
 
