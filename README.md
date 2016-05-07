@@ -9,7 +9,9 @@ Feel free to add feature requests and/or suggestions.
 ## USAGE
 
 extreme-android-launcher.sh -{l} -{i} - {a} - {t} - {z} - {d} - {c} - {v} - {k} - {r} - {w} - {t} - {c} - {e} - {h} avdname--- Script to Launch Android Emulators
+
 where:
+
 	-l		launch an AVD with name (skips logging and cleanup)
 	-i		install an app from apk (from the sdcard)
 	-a		launch an app activity (specify the activity name)
